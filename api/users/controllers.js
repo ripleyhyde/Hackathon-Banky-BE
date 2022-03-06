@@ -12,10 +12,10 @@ const generateToken = (newUser) => {
   return jwt.sign(JSON.stringify(payload), JWT_SECRET);
 };
 
-exports.signup = async (req, res, next) => {
+exports.signUp = async (req, res, next) => {
   console.log(req.body);
   try {
-    const { password } = req.body;
+    const password = req.body.password;
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     console.log("exports.signup -> hashedPassword", hashedPassword);
@@ -29,10 +29,10 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-exports.signIn = async (req, res, done) => {
+exports.logIn = async (req, res, done) => {
   try {
     const token = generateToken(req.user);
-    res.status(201).json(token);
+    res.status(201).json({ token: token });
   } catch (error) {
     done(error);
   }
