@@ -4,7 +4,9 @@ const connectDB = require("./database");
 const signupRoutes = require("./api/users/routes");
 const passport = require("passport");
 const { localStrategy } = require("./middleware/passport");
+const beneficiaryRoutes = require("./api/beneficiary/routes");
 
+//MIDDLEWARE
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -22,6 +24,7 @@ passport.use(localStrategy);
 
 //Routes
 app.use("/", signupRoutes);
+app.use("/beneficiaries", beneficiaryRoutes);
 
 connectDB();
 app.listen(8000);
